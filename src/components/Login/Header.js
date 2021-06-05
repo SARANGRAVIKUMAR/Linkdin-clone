@@ -5,7 +5,7 @@ const Header = () => {
   return (
     <HeaderSection>
       <LogoSection>
-        <Logo src="images/LI-Logo.png" />
+        <Logo src="images/login-logo.svg" />
       </LogoSection>
       <LoginSection>
         <JoinButton> Join now</JoinButton>
