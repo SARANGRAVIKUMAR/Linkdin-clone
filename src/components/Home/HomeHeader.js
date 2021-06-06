@@ -1,8 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 const HomeHeader = () => {
-  const [isOpen, setIsOpen] = useState(true);
+  const menuref = useRef();
+  const [isOpen, setIsOpen] = useState(false);
+  console.log(menuref);
+
+  const handleClick = (e) => {
+    if (menuref.current.contains(e.target)) {
+      return;
+    }
+    setIsOpen(false);
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClick);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClick);
+    };
+  }, []);
 
   return (
     <HeaderContainer>
@@ -36,7 +53,7 @@ const HomeHeader = () => {
             <span>notifications</span>
           </NavMenu>
           <NavMenu>
-            <User onClick={() => setIsOpen(!isOpen)}>
+            <User ref={menuref} onClick={() => setIsOpen(!isOpen)}>
               <UserImg>
                 <img src="https://media-exp1.licdn.com/dms/image/C5603AQEp7EKFR2h0MQ/profile-displayphoto-shrink_100_100/0/1602657165540?e=1628726400&v=beta&t=YIpi102uzXGqMAfWDggO_0CHnWtb9BP6Hmthrw1IIgA" />
               </UserImg>
