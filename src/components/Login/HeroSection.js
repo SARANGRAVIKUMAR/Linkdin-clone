@@ -18,7 +18,7 @@ export const Img = styled.img`
   margin-left: auto;
   position: absolute;
   right: 150px;
-  top: 100px;
+  top: 200px;
   z-index: -1;
   width: 700px;
   height: 700px;
@@ -60,7 +60,7 @@ export const HeroList = styled.ul`
   padding-top: 100px;
 `;
 export const HeroContainer = styled.div`
-  padding: 40px 0px 138px 0;
+  padding: 200px 0px 138px 0;
   max-width: 1128px;
   margin: 0px auto;
   display: flex;

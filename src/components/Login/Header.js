@@ -43,7 +43,7 @@ export const SignIn = styled.button`
   font-size: 16px;
   border-width: 0.5px;
   transition: all 0.15s ease;
-
+  cursor: pointer;
   &:hover {
     background-color: #c6e5f0;
     box-shadow: rgb(10, 102, 194) 0 0 0 1px;
@@ -54,6 +54,7 @@ export const Logo = styled.img`
   width: 100%;
   object-fit: contain;
   height: 100%;
+  cursor: pointer;
 `;
 
 export const HeaderSection = styled.div`
