@@ -266,6 +266,9 @@ export const HeaderRight = styled.div`
 `;
 
 export const HeaderContainer = styled.div`
+  position: sticky;
+  top: 0;
+  z-index: 999999;
   background-color: #fff;
   padding: 10px;
 `;

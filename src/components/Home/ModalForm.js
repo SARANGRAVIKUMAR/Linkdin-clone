@@ -5,10 +5,15 @@ import { IconButton } from "@material-ui/core";
 import PhotoIcon from "@material-ui/icons/Photo";
 import MovieIcon from "@material-ui/icons/Movie";
 import ReactPlayer from "react-player";
+import { useDispatch } from "react-redux";
+import { postDetails } from "../../features/postSlice";
 
 const ModalForm = ({ setFormToggle }) => {
+  const dispatch = useDispatch();
+
   const [shareImage, setShareImage] = useState("");
   const [videoLink, setVideoLink] = useState("");
+  const [input, setInput] = useState("");
   const [imageToggle, setImageToggle] = useState(false);
   const [textDisplay, setTextDisplay] = useState(false);
 
@@ -38,9 +43,24 @@ const ModalForm = ({ setFormToggle }) => {
       document.removeEventListener("mousedown", handleClick);
     };
   }, []);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(
+      postDetails({
+        description: input,
+        image: URL.createObjectURL(shareImage),
+      })
+    );
+    setInput("");
+    setShareImage("");
+    setVideoLink("");
+    setFormToggle(false);
+  };
+
   return (
     <Container>
-      <FormContent ref={menuref}>
+      <FormContent onSubmit={handleSubmit} ref={menuref}>
         <ModalHeading>
           <HeadingName>Create a Post</HeadingName>
           <IconButton onClick={() => setFormToggle(false)}>
@@ -52,7 +72,13 @@ const ModalForm = ({ setFormToggle }) => {
           <Userimg src="https://lh3.googleusercontent.com/a-/AOh14GgYu5dL-VHzVWzJzSXZKoDy9FTAQzFkw1rh-fQZ_A=s96-c" />
           <Username>Sarang Ravikumar</Username>
         </User>
-        <input type="text" placeholder="What do you want to talk about" />
+        <input
+          type="text"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          required
+          placeholder="What do you want to talk about"
+        />
         {textDisplay && (
           <UploadImage>
             {imageToggle && (
@@ -100,7 +126,9 @@ const ModalForm = ({ setFormToggle }) => {
             <Photo onClick={() => setImageToggle(true)} />
             <Movie onClick={() => setImageToggle(false)} />
           </Icons>
-          <Button>Post</Button>
+          <Button disabled={!input} type="submit">
+            Post
+          </Button>
         </Bottom>
       </FormContent>
     </Container>
@@ -189,7 +217,7 @@ export const ModalHeading = styled.div`
   font-weight: 300;
 `;
 
-export const FormContent = styled.div`
+export const FormContent = styled.form`
   hr {
     border: 1px solid whitesmoke;
   }

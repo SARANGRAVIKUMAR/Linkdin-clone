@@ -143,22 +143,28 @@ export const Container = styled.div`
   justify-content: space-between;
 `;
 export const ContainerLeft = styled.div`
+  top: 90px;
   margin-right: 10px;
   border: 1px solid lightgray;
   position: relative;
   width: 225px;
   height: 320px;
   background-color: #fff;
+  position: sticky;
   border-radius: 10px;
+  transition: all 0.2s ease-in;
   hr {
     border: 0.5px solid whitesmoke;
   }
 `;
 export const ContainerMain = styled.div`
-  min-width: 200px;
+  min-width: 500px;
+  word-wrap: wrap;
 `;
 export const ContainerRight = styled.div`
   border: 1px solid lightgray;
+  position: sticky;
+  top: 90px;
   margin-left: 10px;
   background-color: #fff;
   border-radius: 10px;
