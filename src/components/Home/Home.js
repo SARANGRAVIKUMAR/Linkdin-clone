@@ -15,6 +15,7 @@ const Home = () => {
 export const Main = styled.div`
   background-color: #f3f2ef;
   flex-wrap: wrap;
+  min-height: 100vh;
 `;
 
 export default Home;

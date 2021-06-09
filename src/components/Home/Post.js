@@ -4,8 +4,9 @@ import ThumbUpAltOutlinedIcon from "@material-ui/icons/ThumbUpAltOutlined";
 import CommentOutlinedIcon from "@material-ui/icons/CommentOutlined";
 import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import ShareOutlinedIcon from "@material-ui/icons/ShareOutlined";
+import ReactPlayer from "react-player";
 
-const Post = ({ username, mail, time, description, image }) => {
+const Post = ({ username, mail, time, description, image, video }) => {
   const [isReadMore, setIsReadMore] = useState(false);
 
   return (
@@ -19,16 +20,23 @@ const Post = ({ username, mail, time, description, image }) => {
         </UserDetails>
       </PostUserDetails>
       <PostDescription>
-        {isReadMore ? (description) : description?.slice(0, 100)}
+        {isReadMore ? description : description?.slice(0, 100)}
         {description?.length > 100 && (
           <span onClick={() => setIsReadMore(!isReadMore)}>
             {isReadMore ? " ...read less" : " ...read more"}
           </span>
         )}
       </PostDescription>
-      <PostImage>
-        <img src={image} />
-      </PostImage>
+      {image && (
+        <PostImage>
+          <img src={image} />
+        </PostImage>
+      )}
+      {video && (
+        <Video>
+          <ReactPlayer width={"100%"} url={video} />
+        </Video>
+      )}
 
       <CountSection>
         <Likes />
@@ -55,6 +63,8 @@ const Post = ({ username, mail, time, description, image }) => {
     </PostContainer>
   );
 };
+export const Video = styled.div``;
+
 export const Icons = styled.div`
   padding: 10px 20px;
   display: flex;

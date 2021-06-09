@@ -7,6 +7,7 @@ import MovieIcon from "@material-ui/icons/Movie";
 import ReactPlayer from "react-player";
 import { useDispatch } from "react-redux";
 import { postDetails } from "../../features/postSlice";
+import db from "../../firebase";
 
 const ModalForm = ({ setFormToggle }) => {
   const dispatch = useDispatch();
@@ -16,6 +17,7 @@ const ModalForm = ({ setFormToggle }) => {
   const [input, setInput] = useState("");
   const [imageToggle, setImageToggle] = useState(false);
   const [textDisplay, setTextDisplay] = useState(false);
+  const [posts, setPosts] = useState([]);
 
   const handleChange = (e) => {
     const image = e.target.files[0];
@@ -24,7 +26,7 @@ const ModalForm = ({ setFormToggle }) => {
       alert(`is not a image the file is ${typeof image}`);
       return;
     } else {
-      setShareImage(image);
+      setShareImage(URL.createObjectURL(image));
     }
   };
 
@@ -46,12 +48,11 @@ const ModalForm = ({ setFormToggle }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(
-      postDetails({
-        description: input,
-        image: URL.createObjectURL(shareImage),
-      })
-    );
+    db.collection("posts").add({
+      description: input,
+      image: shareImage,
+      video: videoLink,
+    });
     setInput("");
     setShareImage("");
     setVideoLink("");
@@ -94,10 +95,9 @@ const ModalForm = ({ setFormToggle }) => {
                 <p>
                   <label htmlFor="file">Select a image</label>
                 </p>
-                {shareImage && <img src={URL.createObjectURL(shareImage)} />}
+                {shareImage && <img src={shareImage} />}
               </>
             )}
-
             {!imageToggle && (
               <>
                 <input
@@ -233,7 +233,6 @@ export const FormContent = styled.form`
     width: 400px;
     border: none;
     background: transparent;
-    /* margin-bottom: 150px; */
   }
 `;
 
