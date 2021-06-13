@@ -1,6 +1,6 @@
 import "./App.css";
 import Login from "./components/Login/Login";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import Home from "./components/Home/Home";
 
 function App() {
